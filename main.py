@@ -26,7 +26,7 @@ class ModelInput(BaseModel):
     smoke: int
     region: int
 
-insure_model = joblib.load(r"C:\Users\Edet Joseph\Desktop\model as api\py code\regressor.joblib")
+insure_model = joblib.load("regressor.joblib")
 
 #Create the end point
 @app.post("/med_prediction")

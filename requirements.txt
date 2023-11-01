@@ -4,3 +4,5 @@ pydantic
 joblib
 scikit-learn
 numpy
+pyngrok
+nest_asyncio
