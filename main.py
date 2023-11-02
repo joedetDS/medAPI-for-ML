@@ -43,9 +43,3 @@ def insurance_pred(input_parameters: ModelInput):
     prediction = insure_model.predict([input_list])
     
     return prediction[0]
-
-
-ngrok_tunnel = ngrok.connect(8000)
-print("Public URL",ngrok_tunnel.public_url)
-nest_asyncio.apply()
-uvicorn.run(app,port=8000)
