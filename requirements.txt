@@ -3,6 +3,6 @@ uvicorn
 pydantic
 joblib
 scikit-learn
-numpy
+numpy>=1.21.0
 pyngrok
 nest_asyncio
