@@ -1,23 +1,20 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-import uvicorn
 import joblib
-from pyngrok import ngrok
-from fastapi.middleware.cors import CORSMiddleware
-import nest_asyncio
 
 app = FastAPI()
 
-#set up the CORS
+# CORS middleware setup
 origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = origins,
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods = ["*"],
-    allow_headers = ["*"]
-    )
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
+# Define your input model
 class ModelInput(BaseModel):
     age: int
     gender: int
@@ -26,9 +23,10 @@ class ModelInput(BaseModel):
     smoke: int
     region: int
 
+# Load your model
 insure_model = joblib.load("regressor.joblib")
 
-#Create the end point
+# Endpoint for prediction
 @app.post("/med_prediction")
 def insurance_pred(input_parameters: ModelInput):
     age = input_parameters.age
@@ -42,4 +40,9 @@ def insurance_pred(input_parameters: ModelInput):
 
     prediction = insure_model.predict([input_list])
     
-    return prediction[0]
+    return {"prediction": prediction[0]}
+
+# Optional: Root endpoint
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the FastAPI application!"}
